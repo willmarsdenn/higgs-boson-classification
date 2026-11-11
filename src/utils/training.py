@@ -11,6 +11,7 @@ def objective(trial, X_train, y_train, X_val, y_val, w_val, use_gpu=False):
         'learning_rate': trial.suggest_float('learning_rate', 0.001, 0.05, log=True),
         'subsample': trial.suggest_float('subsample', 0.6, 1.0),
         'colsample_bytree': trial.suggest_float('colsample_bytree', 0.5, 1.0),
+        'scale_pos_weight': trial.suggest_float('scale_pos_weight', 1.0, 5.0),
         'gamma': trial.suggest_float('gamma', 0.1, 5.0),
         'alpha': trial.suggest_float('alpha', 1e-5, 10, log=True),
         'lambda': trial.suggest_float('lambda', 1e-5, 10, log=True),
@@ -34,8 +35,8 @@ def objective(trial, X_train, y_train, X_val, y_val, w_val, use_gpu=False):
     best_ams_for_trial = 0
 
     # Use dynamic probability thresholds to find the best AMS score for this trial
-    # Thresholds range from 0.70 to 0.95 with 50 values in between
-    for threshold in np.linspace(0.70, 0.95, 50): 
+    # Thresholds range from 0.80 to 0.99 with 200 values in between
+    for threshold in np.linspace(0.80, 0.99, 200): 
         y_pred = (y_pred_proba >= threshold).astype(int)
         current_ams = calculate_ams_score(y_val, y_pred, w_val, data_split_ratio=0.2) 
         if current_ams > best_ams_for_trial:

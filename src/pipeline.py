@@ -23,7 +23,7 @@ if __name__ == "__main__":
     start_time = time.time()
     
     study = optuna.create_study(direction="maximize")
-    study.optimize(lambda trial: objective(trial, X_train, y_train, X_val, y_val, w_val, use_gpu), n_trials=10)
+    study.optimize(lambda trial: objective(trial, X_train, y_train, X_val, y_val, w_val, use_gpu), n_trials=500)
     
     end_time = time.time()
     print(f"Training completed in {end_time - start_time:.2f} seconds.")
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     final_best_threshold = 0
     final_accuracy = 0
     
-    for threshold in np.linspace(0.70, 0.95, 50):
+    for threshold in np.linspace(0.80, 0.99, 200):
         y_pred_temp = (y_test_proba >= threshold).astype(int)
         
         # data_split_ratio = 0.2 as validation split is 20%
