@@ -1,2 +1,3 @@
 data/atlas-higgs-challenge-2014-v2.csv
 data/*
+__pycache__/
