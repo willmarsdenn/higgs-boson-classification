@@ -49,7 +49,7 @@ if __name__ == "__main__":
     final_best_threshold = 0
     final_accuracy = 0
     
-    for threshold in np.linspace(0.80, 0.99, 200):
+    for threshold in np.linspace(0.80, 0.99, 100):
         y_pred_temp = (y_test_proba >= threshold).astype(int)
         
         # data_split_ratio = 0.2 as validation split is 20%
