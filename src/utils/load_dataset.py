@@ -19,7 +19,7 @@ def load_preprocessed_data():
     weights = df['Weight'].values
     
     # Drop non-feature columns (EventId is just an index, Label is target, Weight is for AMS)
-    X = df.drop(columns=['EventId', 'Label', 'Weight', 'kaggleWeight', 'kaggleSet'])
+    X = df.drop(columns=['EventId', 'Label', 'Weight', 'KaggleWeight', 'KaggleSet'])
     
     # Change all remaining numbers to float64 for compatibility
     X = X.astype('float64')
