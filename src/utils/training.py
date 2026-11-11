@@ -6,12 +6,14 @@ def objective(trial, X_train, y_train, X_val, y_val, w_val, use_gpu=False):
     """Optuna objective function to maximize AMS score"""
     param = {
         # These set guidelines for hyperparameter tuning and gives a range to explore
-        'n_estimators': trial.suggest_int('n_estimators', 500, 1500),
-        'max_depth': trial.suggest_int('max_depth', 6, 12),
-        'learning_rate': trial.suggest_float('learning_rate', 0.005, 0.1, log=True),
+        'n_estimators': trial.suggest_int('n_estimators', 1000, 3500),
+        'max_depth': trial.suggest_int('max_depth', 6, 14),
+        'learning_rate': trial.suggest_float('learning_rate', 0.001, 0.05, log=True),
         'subsample': trial.suggest_float('subsample', 0.6, 1.0),
-        'colsample_bytree': trial.suggest_float('colsample_bytree', 0.6, 1.0),
-        'gamma': trial.suggest_float('gamma', 0, 5)
+        'colsample_bytree': trial.suggest_float('colsample_bytree', 0.5, 1.0),
+        'gamma': trial.suggest_float('gamma', 0.1, 5.0),
+        'alpha': trial.suggest_float('alpha', 1e-5, 10, log=True),
+        'lambda': trial.suggest_float('lambda', 1e-5, 10, log=True),
     }
 
     # Dynamic variable so that the pipeline can run on either MacOS (CPU) or OpenShift x64 (GPUs)
